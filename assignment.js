@@ -139,7 +139,7 @@ assert.equal(nextLabel("exit"),  "exit-3")
 
 
 
-if (false) { // move me down to the next section when the one above is complete
+
 ///////////////// Section 6 ///////////////////////////////////////////
 //
 // The problem with `nextLabel` is that it uses a global
@@ -150,6 +150,10 @@ if (false) { // move me down to the next section when the one above is complete
 // a new function for each label to be seauenced
 
 function labelMaker(label) {
+    // START
+    var count = -1;
+    return function () {count++; return label + "-" + count}
+    // END
 }
 
 let nextEntryLabel = labelMaker("entry")
@@ -160,6 +164,7 @@ assert.equal(nextEntryLabel(), "entry-1")
 assert.equal(nextExitLabel(),  "exit-0")
 assert.equal(nextEntryLabel(), "entry-2")
 assert.equal(nextExitLabel(),  "exit-1")
+
 
 
 ///////////////// Section 7 ///////////////////////////////////////////
@@ -180,7 +185,15 @@ assert.equal(nextExitLabel(),  "exit-1")
 
 function labelMaker1(label) {
   // START
-  // ...
+    let count = 0
+    return function (num) {
+        if (num != undefined) {
+            count = num
+        }
+
+        return label + "-" + count++
+    }
+
   // END
 }
 
@@ -196,4 +209,5 @@ assert.equal(nextExitLabel1(),    "exit-201")
 assert.equal(nextExitLabel1(0),   "exit-0")
 assert.equal(nextExitLabel1(),    "exit-1")
 
+if (false) { // move me down to the next section when the one above is complete
 }           // end of `if (false)`
